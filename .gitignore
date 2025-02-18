@@ -1,0 +1,5 @@
+projects/*/build/
+projects/*/.dart_tool/
+projects/*/android/.gradle/
+projects/*/ios/Pods/
+pubspec.lock
