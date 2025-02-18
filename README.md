@@ -7,7 +7,7 @@ This repository documents my journey of learning Flutter. Each project focuses o
 | No. | Project Name                            | Description                                   | Status       | Completion Date |
 | --- | --------------------------------------- | --------------------------------------------- | ------------ | --------------- |
 | 01  | [Mi Card](projects/01_mi_card/)         | A simple business card UI built with Flutter. | ✅ Completed | 2025-02-18      |
-| 02  | [New Project](projects/02-new-project/) | (Next project - To be added)                  | 🕒 Planned   | -               |
+| 02  | [New Project](projects/02_dicee/) | (Next project - To be added)                  | 🕒 Planned   | -               |
 
 
 ## 📖 Learning Goals
