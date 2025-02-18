@@ -10,7 +10,7 @@ This is my first Flutter UI project. It displays a simple business card with nam
 
 ## 📸 Screenshots
 
-![Mi Card Home](https://github.com/chloepei867/flutter-learning-hub/blob/main/projects/01_mi_card/screenshots/mi_card.png)
+<img src="https://github.com/chloepei867/flutter-learning-hub/blob/main/projects/01_mi_card/screenshots/mi_card.png" width="300">
 
 
 ## 🚀 How to Run
