@@ -10,6 +10,7 @@ This repository documents my journey of learning Flutter. Each project focuses o
 | 02  | [Dicee](projects/02_dicee/)         | A Flutter app where users tap to roll two dice with random results.                                                        | ✅ Completed | 2025-02-18      |
 | 03  | [Xylophone](projects/04_xylophone/) | A Flutter app using the `audioplayers` package to play local audio.                                                        | ✅ Completed | 2025-03-05      |
 | 05  | [Quizzler](projects/05_Quizzler/)   | a fun and interactive Flutter quiz app that tests general knowledge using OOP principles and the `rflutter_alert` package. | ✅ Completed | 2025-03-08      |
+| 06  | [Destini](projects/06_destini)      | A flutter app for practing general knowledge using OOP                                                                     | ✅ Completed | 2025-03-09      |
 
 ## 📖 Learning Goals
 
