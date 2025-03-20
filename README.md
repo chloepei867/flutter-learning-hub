@@ -12,6 +12,7 @@ This repository documents my journey of learning Flutter. Each project focuses o
 | 05  | [Quizzler](projects/05_Quizzler/)            | a fun and interactive Flutter quiz app that tests general knowledge using OOP principles and the `rflutter_alert` package. | ✅ Completed | 2025-03-08      |
 | 06  | [Destini](projects/06_destini)               | A flutter app for practing general knowledge using OOP                                                                     | ✅ Completed | 2025-03-09      |
 | 07  | [BMI Calculator](projects/07_bmi-calculator) | A flutter app for inputing weight & height and calculating BMI                                                             | ✅ Completed | 2025-03-15      |
+| 08  | [Clima](08_clima-flutter)                    | A flutter app for fetching live weather data through API and http package                                                  | ✅ Completed | 2025-03-20      |
 
 ## 📖 Learning Goals
 
