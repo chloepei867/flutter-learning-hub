@@ -14,8 +14,8 @@ This repository documents my journey of learning Flutter. Each project focuses o
 | 07  | [BMI Calculator](projects/07_bmi-calculator) | A flutter app for inputing weight & height and calculating BMI                                                                                                                          | ✅ Completed | 2025-03-15      |
 | 08  | [Clima](projects/08_clima-flutter)           | A flutter app for fetching live weather data through API and http package                                                                                                               | ✅ Completed | 2025-03-20      |
 | 09  | [Bitcoin Ticker](projects/09_bitcoin-ticker) | A crypto currency price checking app that displays the real-time price based on[REST API from CoinAPI.io](https://docs.coinapi.io/exchange-rates-api/rest-api-realtime/exchange-rates). | ✅ Completed | 2025-03-22      |
-| 10  | [Flash Card](projects/10_flash-card)         | A chat app with Firebase for data save                                                                                                                                                  |              |                 |
-| 11  | [Todoey](projects/11_todoey_flutter)         | A flutter app for todo management                                                                                                                                                       |              |                 |
+| 10  | [Flash Card](projects/10_flash-card)         | A chat app with Firebase for data save                                                                                                                                                  | ✅ Completed | 2025-03-29      |
+| 11  | [Todoey](projects/11_todoey_flutter)         | A flutter app for todo management                                                                                                                                                       | ✅ Completed | 2025-04-03      |
 
 ## 📖 Learning Goals
 
