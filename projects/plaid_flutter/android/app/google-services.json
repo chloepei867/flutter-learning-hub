@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "101345066443",
+    "project_id": "plaid-flutter-b3374",
+    "storage_bucket": "plaid-flutter-b3374.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101345066443:android:8b10a6d9949d817ed78a4e",
+        "android_client_info": {
+          "package_name": "com.example.plaid_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG2zbzMZwm8BanjJ4LZta6gEEz_YTBZfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
