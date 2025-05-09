@@ -8,7 +8,11 @@ class InvestmentTransaction {
   final double price;
   final double quantity;
   final String type;
+  final String subtype;
+  final double fees;
   final String isoCurrencyCode;
+  final String? cancelTransactionId;
+  final String? unofficialCurrencyCode;
 
   InvestmentTransaction({
     required this.investmentTransactionId,
@@ -20,7 +24,11 @@ class InvestmentTransaction {
     required this.price,
     required this.quantity,
     required this.type,
+    required this.subtype,
+    required this.fees,
     required this.isoCurrencyCode,
+    this.cancelTransactionId,
+    this.unofficialCurrencyCode,
   });
 
   factory InvestmentTransaction.fromJson(Map<String, dynamic> json) {
@@ -34,7 +42,11 @@ class InvestmentTransaction {
       price: (json['price'] as num).toDouble(),
       quantity: (json['quantity'] as num).toDouble(),
       type: json['type'],
+      subtype: json['subtype'],
+      fees: (json['fees'] as num).toDouble(),
       isoCurrencyCode: json['iso_currency_code'],
+      cancelTransactionId: json['cancel_transaction_id'],
+      unofficialCurrencyCode: json['unofficial_currency_code'],
     );
   }
 }

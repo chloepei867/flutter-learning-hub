@@ -259,6 +259,8 @@ class PlaidService {
     }
 
     final url = Uri.parse('$plaidBaseUrl/investments/holdings/get');
+    print('Fetching holdings from: $url');
+
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -266,17 +268,23 @@ class PlaidService {
         'client_id': clientId,
         'secret': secret,
         'access_token': accessToken,
-        // 'options': {
-        //   'account_ids': [] // 空数组表示获取所有账户
-        // }
       }),
     );
+
+    print('Holdings response status: ${response.statusCode}');
+    print('Holdings response body: ${response.body}');
+
     if (response.statusCode == 200) {
-      print('Plaid investments response: ${response.body}');
-      return jsonDecode(response.body);
+      final data = jsonDecode(response.body);
+      if (data['error'] != null) {
+        print('Plaid API error: ${data['error']}');
+        throw Exception('Plaid API error: ${data['error']['message']}');
+      }
+      return data;
     } else {
       print('Plaid investments error: ${response.body}');
-      throw Exception('Failed to fetch investment holdings');
+      throw Exception(
+          'Failed to fetch investment holdings: ${response.statusCode}');
     }
   }
 
@@ -289,6 +297,8 @@ class PlaidService {
     }
 
     final url = Uri.parse('$plaidBaseUrl/investments/transactions/get');
+    print('Fetching transactions from: $url');
+
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -298,16 +308,23 @@ class PlaidService {
         'access_token': accessToken,
         'start_date': _getStartDate(),
         'end_date': _getEndDate(),
-        'options': {
-          'account_ids': [] // 空数组表示获取所有账户
-        }
       }),
     );
+
+    print('Transactions response status: ${response.statusCode}');
+    print('Transactions response body: ${response.body}');
+
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      final data = jsonDecode(response.body);
+      if (data['error'] != null) {
+        print('Plaid API error: ${data['error']}');
+        throw Exception('Plaid API error: ${data['error']['message']}');
+      }
+      return data;
     } else {
       print('Plaid investments error: ${response.body}');
-      throw Exception('Failed to fetch investment transactions');
+      throw Exception(
+          'Failed to fetch investment transactions: ${response.statusCode}');
     }
   }
 }

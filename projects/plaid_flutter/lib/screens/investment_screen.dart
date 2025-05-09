@@ -50,41 +50,62 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
 
       for (final token in tokens.values) {
         try {
+          print('Fetching data for token: $token');
+
           final holdingsData =
               await plaidService.fetchInvestmentHoldings(token);
-          print('Plaid investments holdings: ${holdingsData}');
+          print('Holdings data: ${holdingsData.toString()}');
 
-          // 暂时注释掉获取交易数据
-          // final transactionsData = await plaidService.fetchInvestmentTransactions(token);
-          // print('Plaid investments transactions: ${transactionsData}');
+          // Get investment transactions data
+          final transactionsData =
+              await plaidService.fetchInvestmentTransactions(token);
+          print('Transactions data: ${transactionsData.toString()}');
 
           if (holdingsData['holdings'] != null) {
+            print(
+                'Processing holdings: ${holdingsData['holdings'].length} items');
             allHoldings.addAll((holdingsData['holdings'] as List)
                 .map((h) => InvestmentHolding.fromJson(h)));
+          } else {
+            print('No holdings data found');
           }
+
           if (holdingsData['securities'] != null) {
+            print(
+                'Processing securities: ${holdingsData['securities'].length} items');
             allSecurities.addAll((holdingsData['securities'] as List)
                 .map((s) => InvestmentSecurity.fromJson(s)));
+          } else {
+            print('No securities data found');
           }
-          // 暂时注释掉处理交易数据
-          // if (transactionsData['investment_transactions'] != null) {
-          //   allTransactions.addAll(
-          //       (transactionsData['investment_transactions'] as List)
-          //           .map((t) => InvestmentTransaction.fromJson(t)));
-          // }
+
+          if (transactionsData['investment_transactions'] != null) {
+            print(
+                'Processing transactions: ${transactionsData['investment_transactions'].length} items');
+            allTransactions.addAll(
+                (transactionsData['investment_transactions'] as List)
+                    .map((t) => InvestmentTransaction.fromJson(t)));
+          } else {
+            print('No transactions data found');
+          }
         } catch (e) {
           print('Error fetching data for token: $e');
-          // 继续处理其他token
+          // Continue with other tokens
         }
       }
 
-      // 暂时注释掉交易记录排序
-      // allTransactions.sort((a, b) => b.date.compareTo(a.date));
+      print('Final data counts:');
+      print('Holdings: ${allHoldings.length}');
+      print('Securities: ${allSecurities.length}');
+      print('Transactions: ${allTransactions.length}');
+
+      // Sort transactions by date (newest first)
+      allTransactions.sort((a, b) => b.date.compareTo(a.date));
 
       setState(() {
         holdings = allHoldings;
         securities = allSecurities;
-        // transactions = allTransactions;
+        transactions = allTransactions;
         isLoading = false;
       });
     } catch (e) {
@@ -132,9 +153,32 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: ListTile(
                             title: Text(sec?.name ?? h.securityId),
-                            subtitle: Text(
-                                'Quantity: ${h.quantity}, Value: ${h.institutionValue} ${h.isoCurrencyCode}'),
-                            trailing: Text(sec?.tickerSymbol ?? ''),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    'Quantity: ${h.quantity.toStringAsFixed(4)}'),
+                                Text(
+                                    'Value: ${h.institutionValue.toStringAsFixed(2)} ${h.isoCurrencyCode}'),
+                                if (h.costBasis != null)
+                                  Text(
+                                      'Cost Basis: ${h.costBasis!.toStringAsFixed(2)} ${h.isoCurrencyCode}'),
+                              ],
+                            ),
+                            trailing: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(sec?.tickerSymbol ?? ''),
+                                if (sec?.closePrice != null)
+                                  Text(
+                                      '\$${sec!.closePrice!.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            isThreeLine: true,
                           ),
                         );
                       }),
@@ -151,8 +195,26 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                             margin: const EdgeInsets.symmetric(vertical: 6),
                             child: ListTile(
                               title: Text(s.name),
-                              subtitle: Text(
-                                  'Type: ${s.type}, Ticker: ${s.tickerSymbol ?? '-'}'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Type: ${s.type}'),
+                                  if (s.tickerSymbol != null)
+                                    Text('Ticker: ${s.tickerSymbol}'),
+                                  if (s.sector != null)
+                                    Text('Sector: ${s.sector}'),
+                                  if (s.industry != null)
+                                    Text('Industry: ${s.industry}'),
+                                ],
+                              ),
+                              trailing: s.closePrice != null
+                                  ? Text(
+                                      '\$${s.closePrice!.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold))
+                                  : null,
+                              isThreeLine: true,
                             ),
                           )),
                       const SizedBox(height: 20),
@@ -174,10 +236,19 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    'Amount: ${t.amount} ${t.isoCurrencyCode}'),
+                                    'Amount: ${t.amount.toStringAsFixed(2)} ${t.isoCurrencyCode}'),
                                 Text('Date: ${t.date}'),
-                                Text('Security: ${sec?.name ?? t.securityId}'),
-                                Text('Type: ${t.type}'),
+                                Text('Type: ${t.type} (${t.subtype})'),
+                                if (t.quantity != 0)
+                                  Text(
+                                      'Quantity: ${t.quantity.toStringAsFixed(4)}'),
+                                if (t.price != 0)
+                                  Text('Price: ${t.price.toStringAsFixed(2)}'),
+                                if (t.fees != 0)
+                                  Text('Fees: ${t.fees.toStringAsFixed(2)}'),
+                                if (sec != null)
+                                  Text(
+                                      'Security: ${sec.name} (${sec.tickerSymbol ?? 'N/A'})'),
                               ],
                             ),
                             isThreeLine: true,

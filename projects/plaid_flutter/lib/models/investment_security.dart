@@ -10,6 +10,8 @@ class InvestmentSecurity {
   final String? cusip;
   final String? sedol;
   final String? marketIdentifierCode;
+  final String? sector;
+  final String? industry;
 
   InvestmentSecurity({
     required this.securityId,
@@ -23,6 +25,8 @@ class InvestmentSecurity {
     this.cusip,
     this.sedol,
     this.marketIdentifierCode,
+    this.sector,
+    this.industry,
   });
 
   factory InvestmentSecurity.fromJson(Map<String, dynamic> json) {
@@ -38,6 +42,8 @@ class InvestmentSecurity {
       cusip: json['cusip'],
       sedol: json['sedol'],
       marketIdentifierCode: json['market_identifier_code'],
+      sector: json['sector'],
+      industry: json['industry'],
     );
   }
 }
